@@ -5,8 +5,15 @@ export class Http{
         return axios.post(url,data,{headers:{key}})
             
         }
-
-        static get(url,data,key){
-        return axios.get(url,data,{headers:{key}})
+        static get(url,key){
+        return axios.get(url,{headers:{key}})       
+              
         }
+        static delete(url,key){
+            return axios.delete(url,{headers:{key}})    
+        }
+        static put(url,key){
+                return axios.delete(url,{headers:{key}})    
+            }
+        
 }
