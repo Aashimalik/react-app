@@ -7,24 +7,71 @@ class CreateContact extends Component{
         super(props);
         this.formSubmit=this.formSubmit.bind(this);
         this.handleChange=this.handleChange.bind(this);
+        this.resetForm=this.resetForm.bind(this);
         this.state={name:"",phno:"",email:"",address:""};
     }
     handleChange(event){
         this.setState({[event.target.name]:event.target.value});
     }
-        
-     formSubmit(event){
+    resetForm(){
+        this.setState({name:"",phno:"",email:"",address:""});
+    }
+
+    formSubmit(event){
          const {name,phno,email,address}=this.state; 
-                return new Promise((resolve, reject) => {
-                    Http.post('https://zenways-contact.herokuapp.com/api/contact',{name,phno,email,address},'ZENWAYS01AYESHA01')
-                    .then(({data}) => {
-                    console.log(data);
-                    })
-                    .catch((err)=>{console.log(err)})
-                    });
-     }    
+         const {history}=this.props;
+         const {match}=this.props;
+         let id=match.params.id;
+         if(id){
+            Http.put(`https://zenways-contact.herokuapp.com/api/contact/${id}`,{name,phno,email,address},'ZENWAYS01AYESHA01')
+            .then(({data}) => {
+                console.log(data)
+               const {name,phno,email,address}=data.contact;
+               this.setState({
+                name,phno,email,address
+               });
+               history.push('/show')
+            })
+            .catch((err)=>{console.log(err)})
+         }
+         else{
+            Http.post('https://zenways-contact.herokuapp.com/api/contact',{name,phno,email,address},'ZENWAYS01AYESHA01')
+            .then(({data}) => {
+                this.resetForm()
+                 history.push('/show')
+            }
+            )
+            .catch((err)=>console.log(err))
+         }
+        
+                
+    }   
+    componentDidMount(){
+        const {match}=this.props;
+        if(match){
+            let id=match.params.id;
+        if(id){  this.handleupdateclick();}
+        }
+    }
+
+    handleupdateclick() {
+        const {match}=this.props;
+        let id=match.params.id;
+        Http.get(`https://zenways-contact.herokuapp.com/api/contact/${id}`,'ZENWAYS01AYESHA01')
+        .then(({data}) => {
+           const {name,phno,email,address}=data.contact;
+           this.setState({
+            name,phno,email,address
+           })
+        })
+        .catch((err)=>{console.log(err)})
+    }  
+
     render(){
+    console.log(this.props)
         const {name,phno,email,address}=this.state; 
+        const isEnabled = name.length > 0 &&  email.length > 0 && phno.length>0 && address.length>0;
+         
         return (
             <div className="container">
                 <div className="col-md-5">
@@ -45,7 +92,7 @@ class CreateContact extends Component{
                             </div>
                             
                             
-                        <button type="button" onClick={this.formSubmit} id="submit" name="submit" className="btn btn-primary pull-right">Submit Form</button>
+                        <button type="button" disabled={!isEnabled} onClick={this.formSubmit} id="submit" name="submit" className="btn btn-primary pull-right">Submit Form</button>
                         </form>
                     </div>
                 </div>

@@ -12,8 +12,8 @@ export class Http{
         static delete(url,key){
             return axios.delete(url,{headers:{key}})    
         }
-        static put(url,key){
-                return axios.delete(url,{headers:{key}})    
+        static put(url,data,key){
+                return axios.put(url,data,{headers:{key}})    
             }
         
 }

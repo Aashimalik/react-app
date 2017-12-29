@@ -6,6 +6,8 @@ import Home from './components/home';
 import CreateContact from './components/add';
 import ShowContact from './components/show';
 import ParticularContact from './components/particular';
+import Counter from './components/counter';
+
 
 class App extends Component {
   render() {
@@ -17,13 +19,16 @@ class App extends Component {
                   <li><Link to={'/'}>Home</Link></li>
                   <li><Link to={'/add'}>Add</Link></li>
                   <li><Link to={'/show'}>Show</Link></li>
+                  <li><Link to={'/counter'}>Counter</Link></li>
                </ul>
                <hr />
                <Switch>
                   <Route exact path='/' component={Home} />
                   <Route exact path='/add' component={CreateContact} />
+                  <Route exact path='/edit/:id' component={CreateContact} />
                   <Route exact path='/show' component={ShowContact} />
                   <Route exact path='/particular/:id' component={ParticularContact} />
+                  <Route exact path='/counter' component={Counter} />
                </Switch>
             </div>
          </Router>
