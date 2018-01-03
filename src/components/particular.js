@@ -7,7 +7,7 @@ class ParticularContact extends Component{
  constructor(props){
  super(props);
  this.state={
-     contact:1,
+     contact:{},
  }
  this.handledeleteclick=this.handledeleteclick.bind(this);
  
@@ -16,7 +16,7 @@ class ParticularContact extends Component{
             const {match}=this.props;
             let id=match.params.id;
             const {history}=this.props;
-        Http.delete(`https://zenways-contact.herokuapp.com/api/contact/${id}`,'ZENWAYS01AYESHA01')
+        Http.delete(`https://zenways-contact.herokuapp.com/api/contact/${id}`,'ZENWAYS01ABHISHEK01')
         .then(({data}) => {
             history.push('/show')
         })
@@ -25,17 +25,15 @@ class ParticularContact extends Component{
                     
 
  componentDidMount() {
-    const {match}=this.props;
-    let id=match.params.id;
-    return new Promise((resolve, reject) => {
-        Http.get(`https://zenways-contact.herokuapp.com/api/contact/${id}`,'ZENWAYS01AYESHA01')
-        .then(({data}) => {
-            this.setState({
-                contact:data.contact
-                  }) 
+     const {match}=this.props;
+         let id=match.params.id;
+        Http.get(`/contact/${id}`)
+        .then((data) => {
+         this.setState({
+            contact:data.contact
+           })
         })
         .catch((err)=>{console.log(err)})
-        })
     }
 
     

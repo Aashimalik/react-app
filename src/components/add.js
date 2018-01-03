@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 import {Http} from '../lib/Http';
-
+import { Button,Alert } from 'react-bootstrap';
 
 class CreateContact extends Component{
     constructor(props){
@@ -8,6 +8,7 @@ class CreateContact extends Component{
         this.formSubmit=this.formSubmit.bind(this);
         this.handleChange=this.handleChange.bind(this);
         this.resetForm=this.resetForm.bind(this);
+        this.handleupdateclick=this.handleupdateclick.bind(this);
         this.state={name:"",phno:"",email:"",address:""};
     }
     handleChange(event){
@@ -16,35 +17,53 @@ class CreateContact extends Component{
     resetForm(){
         this.setState({name:"",phno:"",email:"",address:""});
     }
-
+  
+    handleupdateclick() {
+        const {match}=this.props;
+         let id=match.params.id;
+        Http.get(`/contact/${id}`)
+        .then((data) => {
+           const {name,phno,email,address}=data.contact;
+           this.setState({
+            name,phno,email,address
+           })
+        })
+        .catch((err)=>{console.log(err)})
+    }  
+     
     formSubmit(event){
-         const {name,phno,email,address}=this.state; 
+        const {name,phno,email,address}=this.state; 
          const {history}=this.props;
          const {match}=this.props;
          let id=match.params.id;
          if(id){
-            Http.put(`https://zenways-contact.herokuapp.com/api/contact/${id}`,{name,phno,email,address},'ZENWAYS01AYESHA01')
-            .then(({data}) => {
-                console.log(data)
-               const {name,phno,email,address}=data.contact;
-               this.setState({
+            Http.put(`/contact/update/${id}`,{name,phno,email,address})
+            .then((data) => {
+            const {name,phno,email,address}=data.contact;
+            this.setState({
                 name,phno,email,address
-               });
-               history.push('/show')
+            });
+            this.resetForm();
+            <Alert bsStyle="success">
+    <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+  </Alert>
+             history.push('/show')
             })
-            .catch((err)=>{console.log(err)})
+            .catch((err)=>{
+             console.log(err)})
          }
          else{
-            Http.post('https://zenways-contact.herokuapp.com/api/contact',{name,phno,email,address},'ZENWAYS01AYESHA01')
-            .then(({data}) => {
-                this.resetForm()
-                 history.push('/show')
-            }
-            )
-            .catch((err)=>console.log(err))
+        Http.post(`/contact`,{name,phno,email,address})
+        .then((data) => {
+             this.setState({
+                name,phno,email,address
+               });
+            this.resetForm();
+            history.push('/show')
+        })
+        .catch((err)=>{console.log(err)})
          }
-        
-                
+            
     }   
     componentDidMount(){
         const {match}=this.props;
@@ -54,21 +73,11 @@ class CreateContact extends Component{
         }
     }
 
-    handleupdateclick() {
-        const {match}=this.props;
-        let id=match.params.id;
-        Http.get(`https://zenways-contact.herokuapp.com/api/contact/${id}`,'ZENWAYS01AYESHA01')
-        .then(({data}) => {
-           const {name,phno,email,address}=data.contact;
-           this.setState({
-            name,phno,email,address
-           })
-        })
-        .catch((err)=>{console.log(err)})
-    }  
+
 
     render(){
-    console.log(this.props)
+    
+
         const {name,phno,email,address}=this.state; 
         const isEnabled = name.length > 0 &&  email.length > 0 && phno.length>0 && address.length>0;
          
@@ -96,6 +105,7 @@ class CreateContact extends Component{
                         </form>
                     </div>
                 </div>
+
             </div>
             
         )
