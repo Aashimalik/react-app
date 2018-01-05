@@ -15,6 +15,8 @@ class Header extends  Component{
 	      		<NavItem eventKey={2} href="/add">Add Contact</NavItem>
 	      		<NavItem eventKey={3} href='/show?page=1'>Show Contact</NavItem>
 	      		<NavItem eventKey={4} href='/counter'>Counter</NavItem>
+	      		<NavItem eventKey={4} href='/xyz'>xyz</NavItem>
+
 	    	</Nav>
   		</Navbar>
 		);

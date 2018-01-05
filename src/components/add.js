@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 import {Http} from '../lib/Http';
-import { Button,Alert } from 'react-bootstrap';
+
 
 class CreateContact extends Component{
     constructor(props){
@@ -44,9 +44,7 @@ class CreateContact extends Component{
                 name,phno,email,address
             });
             this.resetForm();
-            <Alert bsStyle="success">
-    <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
-  </Alert>
+            
              history.push('/show')
             })
             .catch((err)=>{

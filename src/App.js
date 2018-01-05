@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './components/home';
 import CreateContact from './components/add';
 import ShowContact from './components/show';
@@ -9,7 +9,7 @@ import ParticularContact from './components/particular';
 import Counter from './components/counter';
 import NotFound from './components/NotFound';
 import Header from './components/Header';
-
+import xyz from './components/temp';
 
 class App extends Component {
   render() {
@@ -27,6 +27,7 @@ class App extends Component {
                   <Route exact path='/show' component={ShowContact} />
                   <Route exact path='/particular/:id' component={ParticularContact} />
                   <Route exact path='/counter' component={Counter} />
+                  <Route exact path='/xyz' component={xyz} />
                   <Route  component={NotFound} />
                </Switch>
             </div>

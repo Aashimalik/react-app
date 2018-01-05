@@ -4,7 +4,6 @@ import { Modal,Button} from 'react-bootstrap';
 class ShowPopup extends Component{
   
     render(){
-
     	return(
 
     		
@@ -17,7 +16,7 @@ class ShowPopup extends Component{
                      </Modal.Body>
                      <Modal.Footer>
                        <Button onClick={this.props.onHide}>Close</Button>
-                       <Button bsStyle="danger" onClick={this.props.handledeleteclick}>Delete</Button>
+                       <Button bsStyle="danger" onClick={this.props.deleteclick}>Delete</Button>
                      </Modal.Footer>
                    </Modal>  
 

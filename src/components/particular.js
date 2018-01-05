@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import {Http} from '../lib/Http';
-import ReactRouterBootstrap, { LinkContainer } from 'react-router-bootstrap';
-
+import  { LinkContainer } from 'react-router-bootstrap';
+import { Button } from 'react-bootstrap';
 
 class ParticularContact extends Component{
  constructor(props){
@@ -9,20 +9,23 @@ class ParticularContact extends Component{
  this.state={
      contact:{},
  }
- this.handledeleteclick=this.handledeleteclick.bind(this);
+ this.deleteclick=this.deleteclick.bind(this);
  
  }
- handledeleteclick() {
-            const {match}=this.props;
-            let id=match.params.id;
-            const {history}=this.props;
-        Http.delete(`https://zenways-contact.herokuapp.com/api/contact/${id}`,'ZENWAYS01ABHISHEK01')
-        .then(({data}) => {
-            history.push('/show')
-        })
+deleteclick() {
+   const {history}=this.props
+       const {match}=this.props;
+         let id=match.params.id;
+        Http.delete(`/contact/${id}`)
+        .then((data) => {
+            this.setState({
+               smShow:false
+            })
+          history.push('/show')
+           
+    })
         .catch((err)=>{console.log(err)})
-        }
-                    
+    }          
 
  componentDidMount() {
      const {match}=this.props;
@@ -51,10 +54,8 @@ class ParticularContact extends Component{
              
             </div>
         </div>
-        <button onClick={this.handledeleteclick} id="delbtn" className=" mdl-button show-modal mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-                <i className="material-icons">delete</i>
-              </button>
-              {/* <a href={'/edit/'+_id}> */}
+<Button bsStyle="info" onClick={this.deleteclick}>Delete</Button>
+     
         <LinkContainer to={"/edit/"+_id}>
         <button  id="editbtn" className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ><i className="material-icons">mode_edit</i></button>
         </LinkContainer>

@@ -1,8 +1,8 @@
 import React,{ Component } from 'react';
 import {Http} from '../lib/Http';
-import {Link} from 'react-router-dom';
+
 import PaginationList from './Pagination';
-import { Table,Modal,Button,Alert} from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import ShowPopup from './ShowPopup';
 import ShowRow from './ShowRow';
 
@@ -18,11 +18,19 @@ class ShowContact extends Component{
             user:{},
         };
         this.handleClick=this.handleClick.bind(this);
-        
+        this.toggleModal=this.toggleModal.bind(this);
         this.handledeleteclick=this.handledeleteclick.bind(this);
+        this.deleteclick=this.deleteclick.bind(this);
     }
 
-    handledeleteclick() {
+    handledeleteclick(user) {
+        this.setState({
+            user:user,
+            smShow:true
+        })
+        
+    }
+     deleteclick(){
         let id=this.state.user._id;
         Http.delete(`/contact/${id}`)
         .then((data) => {
@@ -33,7 +41,7 @@ class ShowContact extends Component{
            
         })
         .catch((err)=>{console.log(err)})
-    }
+     }
      
      
     handleClick(event) {
@@ -68,8 +76,9 @@ class ShowContact extends Component{
             });
     }
 
+
     componentDidMount(){
-                       const {history}=this.props
+        const {history}=this.props
         let p=this.props.history.location.search
         var urlParts = p.split('=');
         var k=parseInt(urlParts[1]);
@@ -82,13 +91,19 @@ class ShowContact extends Component{
             this.httphandle(k);
         }
     }   
-      
+     toggleModal(){
+        this.setState(function(prevState) {
+            return {smShow: !prevState.smShow};
+        })
+    } 
+
     render(){
        
         const {contacts,pageCount}=this.state;
         const isLoading=this.state.isLoading;
         const activePage=this.state.activePage;
-      let smClose = () => this.setState({ smShow: false });
+      // let smClose = () => this.setState({ smShow: false });
+      // let smSet=()=> this.setState({ smShow: true});
         if(isLoading){
             return(
                 <div><h1>Data is loading</h1></div>
@@ -111,29 +126,14 @@ class ShowContact extends Component{
                     <tbody>
                         {contacts.map((user,index)=>{
                             return (
-                                <tr key={index}>
-                                    <td>{user.name}</td>
-                                    <td>{user.phno}</td>
-                                    <td>{user.email}</td>
-                                    <td>
-                                    <Link to={"/particular/"+user._id}><Button bsStyle="success">View</Button></Link>
-                                    </td>
-                                    <td>
-                                <Link to={"/edit/"+user._id}><Button bsStyle="primary" >Edit</Button></Link>
-                                    </td>
-                                    <td>
-                              <Button bsStyle="primary"   onClick={() => this.setState({ smShow: true,user:user})}>
-          Delete
-        </Button>
-                                    </td>
-                                </tr>
-
+                                <ShowRow smSet={this.toggleModal}   handledeleteclick={this.handledeleteclick} smShow={this.state.smShow} user={user} key={index}/>
+      
                             );
                         })}
                     </tbody>
                 </Table>
                 <PaginationList items={pageCount} activePage={activePage} onSelect={this.handleClick}/> 
-               <ShowPopup show={this.state.smShow} onHide={smClose} handledeleteclick={this.handledeleteclick}/>
+               <ShowPopup show={this.state.smShow} onHide={this.toggleModal} deleteclick={this.deleteclick}/>
                 </div>           
             );
         }
