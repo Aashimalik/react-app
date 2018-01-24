@@ -32,6 +32,7 @@ deleteclick() {
          let id=match.params.id;
         Http.get(`/contact/${id}`)
         .then((data) => {
+     
          this.setState({
             contact:data.contact
            })
