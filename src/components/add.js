@@ -86,7 +86,7 @@ class CreateContact extends Component{
                         <form >
                             <h3 >Contact Form</h3>
                             <div className="form-group">
-                                <input type="text" value={name} onChange={this.handleChange} className="form-control" id="name" name="name" placeholder="Name" required />
+                                <input type="text" value={name} onChange={this.handleChange}  className="form-control" id="name" name="name" placeholder="Name" required />
                             </div>
                             <div className="form-group">
                                 <input type="text" value={phno} onChange={this.handleChange} className="form-control" id="phno" name="phno" placeholder="Phone" required />
