@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getCookie } from './lib/helper';
 
 
-axios.defaults.baseURL = ( process.env.NODE_ENV !== 'production') ? 'http://localhost:8000/' : '/api/';
+axios.defaults.baseURL = ( process.env.NODE_ENV !== 'production') ? 'http://localhost:8000/' : '/adminapi/';
 
 
 axios.interceptors.request.use( function(config) {
