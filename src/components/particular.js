@@ -16,8 +16,9 @@ deleteclick() {
    const {history}=this.props
        const {match}=this.props;
          let id=match.params.id;
-        Http.delete(`/contact/${id}`)
+        Http.delete(`adminapi/contact/${id}`)
         .then((data) => {
+            console.log("insed error");
             this.setState({
                smShow:false
             })
@@ -30,7 +31,7 @@ deleteclick() {
  componentDidMount() {
      const {match}=this.props;
          let id=match.params.id;
-        Http.get(`/contact/${id}`)
+        Http.get(`adminapi/contact/${id}`)
         .then((data) => {
      
          this.setState({

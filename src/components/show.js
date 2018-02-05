@@ -55,7 +55,7 @@ class ShowContact extends Component{
         this.setState({
            user:user
          })
-        Http.put(`/contact/update/${id}`,{status})
+        Http.put(`adminapi/contact/update/${id}`,{status})
         .then((data) => {
         const {status}=data.contact;
         this.setState({
@@ -73,7 +73,7 @@ class ShowContact extends Component{
         this.setState({
            user:user
          })
-        Http.put(`/contact/update/${id}`,{status})
+        Http.put(`adminapi/contact/update/${id}`,{status})
         .then((data) => {
         const {status}=data.contact;
         this.setState({
@@ -94,7 +94,7 @@ class ShowContact extends Component{
     
     deleteclick(){
         let id=this.state.user._id;
-        Http.delete(`/contact/${id}`)
+        Http.delete(`adminapi/contact/${id}`)
         .then((data) => {
             this.setState({
                smShow:false
@@ -121,9 +121,10 @@ class ShowContact extends Component{
     }
          
     httphandle(event){
+    
        this.searchParam(event);
         return new Promise((resolve, reject) => {
-            Http.get(`api/contacts?page=${event}`)
+            Http.get(`adminapi/api/contacts?page=${event}`)
             .then((data) => {
                
                 this.setState({
@@ -193,7 +194,7 @@ class ShowContact extends Component{
             this.setState({
                 selectarr:array
             })
-            this.state.selectarr=[]
+            this.setState({selectarr:[]})
             console.log(this.state.selectarr)
             let inputs = document.querySelectorAll("input[type='checkbox']");
             for(let i = 0; i < inputs.length; i++) {

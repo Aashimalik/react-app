@@ -1,10 +1,26 @@
 import React from 'react';
-import {Label} from 'react-bootstrap';
+import { Route, Redirect } from 'react-router-dom';
 
-export const statusLabel=(status)=> <Label bsStyle={status ? 'primary':'danger'}>{status ? 'Active':'Inactive'}</Label>
+const PrivateRoute = ({ component: Component, ...rest }) => {
+	let token=getCookie('token')
+  
+	return (
+	  <Route {...rest} render={props => (
+	    token ? (
+	      <Component {...props}/>
+	    ) : (
+	      <Redirect to={{
+	        pathname: '/',
+	        state: { from: props.location }
+	      }}/>
+	    )
+	  )}/>
+	);
+}
 
 
-export const getCookie=(c_name)=> {
+
+  function getCookie(c_name) {
     if (document.cookie.length > 0) {
         let c_start = document.cookie.indexOf(c_name + "=");
         if (c_start !== -1) {
@@ -19,7 +35,4 @@ export const getCookie=(c_name)=> {
     return "";
 }
 
-
-export const  delete_cookie = (name)=> {
-    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-}
+export default PrivateRoute;

@@ -21,7 +21,7 @@ class CreateContact extends Component{
     handleupdateclick() {
         const {match}=this.props;
          let id=match.params.id;
-        Http.get(`/contact/${id}`)
+        Http.get(`adminapi/contact/${id}`)
         .then((data) => {
            const {name,phno,email,address}=data.contact;
            this.setState({
@@ -37,7 +37,7 @@ class CreateContact extends Component{
          const {match}=this.props;
          let id=match.params.id;
          if(id){
-            Http.put(`/contact/update/${id}`,{name,phno,email,address})
+            Http.put(`adminapi/contact/update/${id}`,{name,phno,email,address})
             .then((data) => {
             const {name,phno,email,address}=data.contact;
             this.setState({
@@ -51,7 +51,8 @@ class CreateContact extends Component{
              console.log(err)})
          }
          else{
-        Http.post(`/contact`,{name,phno,email,address})
+        
+        Http.post(`adminapi/contact`,{name,phno,email,address})
         .then((data) => {
              this.setState({
                 name,phno,email,address

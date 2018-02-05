@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 export class Http{
-        static post(url,data){
+        static post(url,data, config=null){
+            // console.log('Bearer'+" "+config)
      return new Promise((resolve,reject)=>{
            axios.post(url,data)
            .then(({data})=>{
@@ -28,7 +29,7 @@ export class Http{
               
         }
 
-        static delete(url){
+        static delete(url,config=null){
             return new Promise((resolve,reject)=>{
                 axios.delete(url)
                 .then(({data})=>{
