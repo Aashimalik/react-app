@@ -15,7 +15,7 @@ export class Http{
         })
             
         }
-        static get(url){
+        static get(url,config=null){
             return new Promise((resolve,reject)=>{
            axios.get(url)
            .then(({data})=>{
@@ -41,7 +41,7 @@ export class Http{
         })
     }
     
-        static put(url,data){
+        static put(url,data,config=null){
                    return new Promise((resolve,reject)=>{
            axios.put(url,data)
            .then(({data})=>{

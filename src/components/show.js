@@ -30,14 +30,16 @@ class ShowContact extends Component{
         this.handlecheckbox=this.handlecheckbox.bind(this);
     }
     inactive(user){
+      
         user.status=false
         const {status}=user
         let id=user._id
         this.setState({
            user:user
          })
-        Http.put(`/contact/update/${id}`,{status})
+        Http.put(`adminapi/contact/update/${id}`,{status})
         .then((data) => {
+           
         const {status}=data.contact;
         this.setState({
             status
@@ -48,16 +50,18 @@ class ShowContact extends Component{
     }
 
     active(user){
-      
+   
         user.status=true
         const {status}=user
         let id=user._id
         this.setState({
            user:user
          })
+        
         Http.put(`adminapi/contact/update/${id}`,{status})
         .then((data) => {
         const {status}=data.contact;
+      
         this.setState({
             status
         });
@@ -126,7 +130,7 @@ class ShowContact extends Component{
         return new Promise((resolve, reject) => {
             Http.get(`adminapi/api/contacts?page=${event}`)
             .then((data) => {
-               
+       
                 this.setState({
                     contacts:data.contacts,
                     pageCount:data.pageCount,

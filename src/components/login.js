@@ -1,6 +1,8 @@
 import React,{ Component } from 'react';
 import {Http} from '../lib/Http';
+import Signup from './Signup'
 import AlertNotification from './aletmodal' ;
+import { LinkContainer,Link} from 'react-router-bootstrap';
 class login extends Component{
     constructor(props){
         super(props);
@@ -8,7 +10,7 @@ class login extends Component{
             username:'',
             password:'',
             error:'',
-            success:''
+            success:'',
             
         }
         this.handleChange=this.handleChange.bind(this);
@@ -44,17 +46,25 @@ class login extends Component{
   
         return(
             <div className="container">
-            <div className="col-md-8">
+            <div className="col-md-5">
                 <div className="form-area">  
                 <AlertNotification alertVisible={error || success} alertMsg={error || success} className={error ? "danger" : "success"}/>
                     <form >
-                   
+                    <h3 >Login</h3>
                         <div className="form-group">
                             <input type="text" name="username" value={username} className="form-control" onChange={this.handleChange} id="name"  placeholder="Name" required />
                         </div>
                         <div className="form-group">
-                            <input type="text" name="password" value={password} className="form-control" onChange={this.handleChange} id="phno" placeholder="Password" required />
+                            <input type="password" name="password" value={password} className="form-control" onChange={this.handleChange} id="phno" placeholder="Password" required />
                         </div>
+                        <div className="form-group">
+                                 
+                                        <div  >
+                                            Don't have an account!<a href='/signup' >signup</a>
+                                        
+                                        </div>
+                                   
+                                </div>   
                         
                     <button type="button" onClick={this.login} id="submit" name="submit" className="btn btn-primary pull-right">Login</button>
                     </form>
@@ -62,6 +72,7 @@ class login extends Component{
             </div>
 
         </div> 
+        
         )
     }
 }
