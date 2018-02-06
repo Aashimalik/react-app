@@ -12,6 +12,7 @@ import PrivateRoute from './components/PrivateRoute';
 import login from './components/login';
 import   Signup  from './components/Signup';
 import Chat from "./components/Chat";
+import Forgot from "./components/forgotPassword";
 import React from 'react';
 
 export const Routers = props => {
@@ -28,6 +29,7 @@ export const Routers = props => {
                      <Route exact path='/' component={Home} />
                      <Route exact path='/login' component={login} />
                      <Route exact path='/signup' component={Signup} />
+                     <Route exact path='/forgot' component={Forgot} />
                      <PrivateRoute exact path='/add' component={CreateContact} />
                      <PrivateRoute exact path='/edit/:id' component={CreateContact} />
                      <PrivateRoute exact path='/delete/:id' component={CreateContact} />

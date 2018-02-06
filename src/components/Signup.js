@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Modal,Button} from 'react-bootstrap';
 import {Http} from '../lib/Http';
+
 import AlertNotification from './aletmodal' ;
 
 class Signup extends Component{
@@ -8,10 +9,10 @@ class Signup extends Component{
         super(props);
         
         this.handleChange=this.handleChange.bind(this);
-        this.handleHide = this.handleHide.bind(this);
+      
         this.Signup = this.Signup.bind(this);
         this.state = {
-          show: false,
+          
           username:'',
             password:'',
             message:'',
@@ -21,21 +22,16 @@ class Signup extends Component{
         this.setState({[event.target.name]:event.target.value});
     }
 
-      componentDidMount(){
-        
-        this.setState({ show: true })
-      }
-
-    handleHide() {
-        console.log(this.props)
-        const {history}=this.props
-        this.setState({ show: false });
-        history.push('/login')
-      }
+    // handleHide() {
+    //     console.log(this.props)
+    //     const {history}=this.props
+    //     this.props.show=false;
+    //     this.setState({ show: false });
+    //     // history.push('/login')
+    //   }
 
       Signup(){
-          console.log("signup",this.state)
-         
+ 
           const {username,password}=this.state;
           Http.post(`adminapi/user/sign`,{username,password})
           .then((data) => { 
@@ -50,15 +46,16 @@ class Signup extends Component{
       }
 
     render(){
-        const {username,password,message}=this.state
-      
+      const {username,password,message}=this.state
+      const {show ,hide}=this.props;
+    
         return(
             <div className="modal-container" style={{ height: 200,width: 10}}>
            
     
             <Modal
-              show={this.state.show}
-              onHide={this.handleHide}
+              show={show}
+              onHide={hide}
               container={this}
               aria-labelledby="contained-modal-title"
             >
@@ -83,7 +80,7 @@ class Signup extends Component{
             
               </Modal.Body>
               <Modal.Footer>
-                <Button onClick={this.handleHide}>Close</Button>
+                <Button onClick={this.props.hide}>Close</Button>
                 <Button bsStyle="info" onClick={this.Signup} >Signup</Button>
               </Modal.Footer>
             </Modal>

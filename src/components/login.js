@@ -1,6 +1,7 @@
 import React,{ Component } from 'react';
 import {Http} from '../lib/Http';
-
+import Signup from './Signup';
+import { Link } from 'react-router-dom';
 import AlertNotification from './aletmodal' ;
 
 class login extends Component{
@@ -11,15 +12,23 @@ class login extends Component{
             password:'',
             error:'',
             success:'',
+            show:false,
             
         }
         this.handleChange=this.handleChange.bind(this);
         this.login=this.login.bind(this);
+        this.toggle=this.toggle.bind(this);
 
     }
     handleChange(event){
         this.setState({[event.target.name]:event.target.value});
     }
+
+    toggle(){
+        this.setState(function(prevState) {
+            return {show: !prevState.show};
+        })
+    } 
     login = () => {
         const {history}=this.props;
         const {username,password}=this.state;
@@ -60,9 +69,13 @@ class login extends Component{
                         <div className="form-group">
                                  
                                         <div  >
-                                            Don't have an account!<a href='/signup' >signup</a>
-                                        
+                                        No account? 
+                                            <a onClick={()=>{this.setState({show:true})}}>Create one</a><br/>
+                                            <Link to='/forgot'> Forgot Password</Link>
+                                           <Signup show ={this.state.show} hide={this.toggle}/>
+                                           
                                         </div>
+                                        
                                    
                                 </div>   
                         
