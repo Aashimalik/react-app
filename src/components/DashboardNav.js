@@ -25,9 +25,13 @@ class DashboardNav extends Component{
                         <LinkContainer to="/show?page=1">
 		   	            <NavItem eventKey={2} >Show Contact</NavItem>
                         </LinkContainer> 
+                        <LinkContainer to="/chat">
+		            	<NavItem eventKey={3}>Chat </NavItem>
+		   	            </LinkContainer>
                         <LinkContainer to="/logout">
 		            	<NavItem eventKey={3}> <Button onClick={()=>delete_cookie('token')} bsSize="small" bsStyle="primary">Logout</Button></NavItem>
 		   	            </LinkContainer>
+                          
                         </Nav>
                 :   <Nav>
                             <LinkContainer to="/login">

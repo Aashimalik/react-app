@@ -11,7 +11,7 @@ import xyz from './components/temp';
 import PrivateRoute from './components/PrivateRoute';
 import login from './components/login';
 import   Signup  from './components/Signup';
-
+import Chat from "./components/Chat";
 import React from 'react';
 
 export const Routers = props => {
@@ -24,6 +24,7 @@ export const Routers = props => {
          <Header/>
          
                   <Switch>
+                     
                      <Route exact path='/' component={Home} />
                      <Route exact path='/login' component={login} />
                      <Route exact path='/signup' component={Signup} />
@@ -34,6 +35,7 @@ export const Routers = props => {
                      <PrivateRoute exact path='/particular/:id' component={ParticularContact} />
                      <PrivateRoute exact path='/counter' component={Counter} />
                      <PrivateRoute exact path='/xyz' component={xyz} />
+                     <PrivateRoute exact path='/chat' component={Chat} />
                      <PrivateRoute  component={NotFound} />
                   </Switch>
                   </div>

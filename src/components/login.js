@@ -1,8 +1,8 @@
 import React,{ Component } from 'react';
 import {Http} from '../lib/Http';
-import Signup from './Signup'
+
 import AlertNotification from './aletmodal' ;
-import { LinkContainer,Link} from 'react-router-bootstrap';
+
 class login extends Component{
     constructor(props){
         super(props);

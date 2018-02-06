@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 import {Http} from '../lib/Http';
-
+import {Loader} from './Loader';
 import PaginationList from './Pagination';
 import { Table,Checkbox} from 'react-bootstrap';
 import ShowPopup from './ShowPopup';
@@ -218,7 +218,8 @@ class ShowContact extends Component{
       // let smSet=()=> this.setState({ smShow: true});
         if(isLoading){
             return(
-                <div><h1>Data is loading</h1></div>
+                // <div><h1>Data is loading</h1></div>
+                <Loader/>
             ); 
         }
         else if(contacts.length>0){
