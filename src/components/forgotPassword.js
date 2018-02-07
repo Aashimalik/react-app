@@ -1,12 +1,16 @@
 import React,{Component} from 'react';
 import { Button } from 'react-bootstrap';
+import {Http} from '../lib/Http';
+import AlertNotification from './aletmodal' ;
 class Forgot extends Component{
     constructor(props){
         super(props);
         this.state={
             username:'',
             confirm_password:'',
-            password:''
+            password:'',
+            error:'',
+            success:''
 
         }
         this.reset=this.reset.bind(this);
@@ -17,12 +21,23 @@ class Forgot extends Component{
     }
 
     reset(){
-        console.log("vfdvg",this.state)
+        const {username,password,confirm_password}=this.state;
+        Http.post('adminapi/user/reset',{username,password,confirm_password})
+        .then((data)=>{
+            const {error}=data
+            if(error){
+                this.setState({ error:data.error.message})
+            }
+            else{
+                this.setState({ success:data.sucess.message,error:""})
+            }
+        })
     }
     render(){
-       const {username,password,confirm_password}=this.state
+       const {username,password,confirm_password,error,success}=this.state
         return(
         <div className="container">
+        <AlertNotification alertVisible={error || success} alertMsg={error || success} className={error ? "danger" : "success"}/>
             <div   className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                 <div className="panel panel-info">
                     <div className="panel-heading">
@@ -31,7 +46,7 @@ class Forgot extends Component{
                     <div className="panel-body">
                         <form  className="form-horizontal" >
                             <div className="form-group">
-                                <label htmlFor="username" className=" control-label col-sm-3">Registered email</label>
+                                <label htmlFor="username" className=" control-label col-sm-3"> Username</label>
                                 <div className="col-sm-9">
                                     <input type="text" onChange={this.handleChange} className="form-control" id="username" value={username} name="username" placeholder="Please input your Username register with us" />
                                 </div>
